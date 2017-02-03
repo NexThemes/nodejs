@@ -1,5 +1,6 @@
-cd currrent folder
+CD currrent folder
 
+git init
 git add *
 git commit -m "git data"
 git remote add origin https://github.com/NexThemes/nodejs.git
