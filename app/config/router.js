@@ -2,7 +2,7 @@
 var routes = [
   { url: "/",          action: (req,res) => { render.show(req,res,'index') } },
   { url: "/signup",    action: (req,res) => { usercontroller.signup(req,res) } },
-  { url: "/signin",    action: (req,res) => { render.show(req,res,'signin') } },
+  { url: "/signin",    action: (req,res) => { usercontroller.signin(req,res) } },
   { url: "/profile",   action: (req,res) => { render.show(req,res,'profile') } },
   { url: "/signout",   action: (req,res) => { render.show(req,res,'signout') } },
 

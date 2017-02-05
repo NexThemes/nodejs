@@ -1,5 +1,12 @@
 CD currrent folder
 
+git remote -v
+git add *
+git commit -m "message for commit"
+git push origin master
+
+
+
 git init
 git add *
 git commit -m "git data"
