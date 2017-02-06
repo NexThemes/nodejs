@@ -72,35 +72,6 @@ function signup(req, res){
         });
         var newUser = new user.User(userData.login, userData.email, userData.password);
         newUser.save();
-
-
-        // for(var item in workData) {
-        //   var firstPart = workData[item].substr(0, workData[item].indexOf('='));
-        //   var secondPart = workData[item].split('=')[1];
-        //   if(firstPart == 'login') {
-        //     user.login = secondPart;
-        //   } else if (firstPart == 'email') {
-        //     user.email = secondPart;
-        //   } else {
-        //     user.password = secondPart;
-        //   };
-        // };
-        // users.push(user);
-        // // write the new user in a file
-        // fs.writeFile('./data.json', JSON.stringify(users),
-        //     function (err) {
-        //         if (err) {
-        //             console.error('Cannot create file!');
-        //         }
-        //     }
-        // );
-        //
-        // var user = new User(....);
-        // user.save();
-
-      // 1) HomeWork separate by = to : and make it as a object
-      // 2) Same but 2 fields for the sign in
-      // 3) with FS.file check registered user
     });
     res.write('All good');
   };
