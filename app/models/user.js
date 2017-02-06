@@ -8,29 +8,30 @@ class User {
     this.created  = new Date();;
 
   }
+  // function for saving user to file
   save() {
     var user = JSON.stringify( this );
     fs.writeFile( `./database/users/${this.uuid}.json`, user );
   }
-  static find( login = null, email = null, password = null ) {
-    // scan json file
-    // 1) if login, email and password == null , return all [users]
-    if( !login && !email && !password ) {
-      var users = [];
-      fs.readdirSync('./database/users').forEach((file)=>{
-        var data = JSON.parse(fs.readFileSync(`./database/users/${file}`).toString());
-        users.push( new User( data.login, data.email, data.password, data.uuid ) );
-      });
-      return users;
-    }
-    // 2) not null, then return the find ones
-  }
-  read() {
 
-  }
+  // static find( login = null, email = null, password = null ) {
+  //   // scan json file
+  //   // 1) if login, email and password == null , return all [users]
+  //   if( !login && !email && !password ) {
+  //     var users = [];
+  //     fs.readdirSync('./database/users').forEach((file)=>{
+  //       var data = JSON.parse(fs.readFileSync(`./database/users/${file}`).toString());
+  //       users.push( new User( data.login, data.email, data.password, data.uuid ) );
+  //     });
+  //     return users;
+  //   }
+  //   // 2) not null, then return the find ones
+  // }
+
+  // function for deleting user file
   delete() {
-
-    
+    var fileName = this.uuid;
+    fs.unlink(`./database/users/${fileName}.json`, ()=>{console.log(fileName + ' File Deleted');});
   }
 }
 exports.User = User;

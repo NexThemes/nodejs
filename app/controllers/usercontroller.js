@@ -71,7 +71,11 @@ function signup(req, res){
           userData[item.split('=')[0]] = item.split('=')[1];
         });
         var newUser = new user.User(userData.login, userData.email, userData.password);
+        // save function for user
         newUser.save();
+
+        // delete function for user
+        // newUser.delete();
     });
     res.write('All good');
   };
