@@ -6,6 +6,7 @@
 global.http     = require('http');
 global.fs       = require('fs');
 global.mustache = require('mustache');
+global.uuid     = require('node-uuid');
 // custom modules
 // global.render   = require('./render.js');
 // global.router   = require('./router.js')

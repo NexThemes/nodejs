@@ -14,6 +14,7 @@
   "author": "Scarevnea Valentin",
   "license": "ISC",
   "dependencies": {
-    "mustache": "^2.3.0"
+    "mustache": "^2.3.0",
+    "node-uuid": "^1.4.7"
   }
 }
