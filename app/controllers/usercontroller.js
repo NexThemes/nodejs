@@ -45,46 +45,35 @@ function signup(req, res){
     render.show(req,res,'signup');
   } else if(req.method == 'POST') {
     var data = '';
-    // data + chunk
+    // add all data toghever by chunks
     req.on('data', (chunk)=>{ data += chunk });
     // transfer complete!
     req.on('end', ()=>{
-      // check if file exists
-      // if (fs.existsSync('./data.json')) {
-      //   // if file exists get the data from it
-      //   fs.readFile('./data.json', 'utf8', function (err, data) {
-      //     if (err) throw err;
-      //     var users = JSON.parse(data);
-      //     // after data require call the save user function
-      //     saveUser(users);
-      //   });
-      // } else {
-      //   // else create a empty array and save a new user
-      //   var users = [];
-      //   saveUser(users);
-      // }
       // save user function
-        dataLink = decodeURIComponent ( data.toString() );
-        var workData = dataLink.split('&');
-        var userData = {};
-        workData.forEach((item)=>{
-          userData[item.split('=')[0]] = item.split('=')[1];
-        });
+      dataLink = decodeURIComponent ( data.toString() );
+      var workData = dataLink.split('&');
+      var userData = {};
+      workData.forEach((item)=>{
+        userData[item.split('=')[0]] = item.split('=')[1];
+      });
+
+      // check
+      if( !user.User.find({ login: userData.login }).length && !user.User.find({email: userData.email}).length ) {
         var newUser = new user.User(userData.login, userData.email, userData.password);
         // save function for user
         newUser.save();
+      } else {
+        console.log('Name or Email in use!');
+      }
 
-        // delete function for user
-        // newUser.delete();
+      // delete function for user
+      // newUser.delete();
     });
     res.write('All good');
   };
 };
 
-// register a user
-function create_account(req, res){
-
-}
+// Check login data, and confirm if user exists or reject if user dosent exist
 
 // exports of controllers
 exports.signup = signup;
