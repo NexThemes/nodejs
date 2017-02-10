@@ -3,7 +3,10 @@ require('./app/config/bootstrap.js');
 // start the server
 http.createServer((req,res)=>{
       // pass request and response
-      router.execute( req, res );
+      var session = new NodeSession({secret: 'D3qf9GYL6CJ0NLFgGjiG'});
+      session.startSession(req, res, ()=>{
+        router.execute( req, res );
+      });
     })
     .listen(3000,'localhost',()=>{
       console.log('Server Start!');

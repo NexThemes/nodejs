@@ -3,13 +3,17 @@
 // include modules
 
 // core modules
-global.http     = require('http');
-global.fs       = require('fs');
-global.mustache = require('mustache');
-global.uuid     = require('node-uuid');
+global.http       = require('http');
+global.fs         = require('fs');
+global.mustache   = require('mustache');
+global.uuid       = require('node-uuid');
+global.sanitize   = require('sanitize')();
 // custom modules
 // global.render   = require('./render.js');
 // global.router   = require('./router.js')
+
+global.NodeSession = require('node-session');
+// secret key is used for
 
 
 //Homework scan config/, controllers/, models/

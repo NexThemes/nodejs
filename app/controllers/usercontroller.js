@@ -11,30 +11,21 @@ function signin(req, res){
     req.on('data', (chunk)=>{ dataV += chunk });
     // transfer complete!
     req.on('end', ()=>{
-      if (fs.existsSync('./data.json')) {
-        // if file exists get the data from it
-        fs.readFile('./data.json', 'utf8', function (err, data) {
-          if (err) throw err;
-          var users = JSON.parse(data);
-          // after data require call the save user function
-          dataLink = decodeURIComponent ( dataV.toString() );
-          var workData = dataLink.split('&');
-          for(var item in workData) {
-            var secondPart = workData[item].split('=')[1];
-            for(var user in users) {
-              var checkPart = users[user].login;
-              if(secondPart == checkPart) {
-                console.log('Success');
-                return;
-              } else {
-                console.log('No User Found');
-              }
-            }
-          }
-        })
-      } else {
-        console.log('User not found!');
-      }
+      dataLink = decodeURIComponent ( dataV.toString() );
+      var workData = dataLink.split('&');
+      var logChek = (workData[0].split('=')[1]);
+      var passChek = (workData[1].split('=')[1]);
+      var foundData = user.User.find({ login: logChek });
+      foundData.forEach((name)=>{
+        if(name.password == passChek) {
+          req.session.put('userid', name.uuid);
+          console.log('Wellcome ' + logChek);
+          console.log(req.session.all());
+          return;
+        } else {
+          console.log("No Such User!");
+        }
+      });
     });
     res.write('All good');
   };
@@ -56,14 +47,27 @@ function signup(req, res){
       workData.forEach((item)=>{
         userData[item.split('=')[0]] = item.split('=')[1];
       });
-
-      // check
-      if( !user.User.find({ login: userData.login }).length && !user.User.find({email: userData.email}).length ) {
-        var newUser = new user.User(userData.login, userData.email, userData.password);
-        // save function for user
-        newUser.save();
+      // sanitize
+      userData.login = sanitize.value(userData.login, /^[a-z0-9]{5,}$/i);
+      if(userData.login) {
+        userData.email = sanitize.value(userData.email, 'email');
+        if(userData.email) {
+          userData.password = sanitize.value(userData.password, /^[A-Za-z0-9]{5,}$/i);
+          if(userData.password) {
+            //  if check is done
+            if( !user.User.find({ login: userData.login }).length && !user.User.find({email: userData.email}).length ) {
+              var newUser = new user.User(userData.login, userData.email, userData.password);
+              // save function for user
+              newUser.save();
+            }
+          } else {
+            console.log('Wrong Password!');
+          }
+        } else {
+          console.log('Wrong Email!');
+        }
       } else {
-        console.log('Name or Email in use!');
+        console.log('Wrong Login!');
       }
 
       // delete function for user
