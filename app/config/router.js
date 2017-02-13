@@ -3,7 +3,7 @@ var routes = [
   { url: "/",          action: (req,res) => { render.show(req,res,'index') } },
   { url: "/signup",    action: (req,res) => { usercontroller.signup(req,res) } },
   { url: "/signin",    action: (req,res) => { usercontroller.signin(req,res) } },
-  { url: "/profile",   action: (req,res) => { render.show(req,res,'profile') } },
+  { url: "/profile",   action: (req,res) => { if(!is.signedIn(req,res)) {res.setHeader("Location", "/signin"); } } },
   { url: "/signout",   action: (req,res) => { render.show(req,res,'signout') } },
 
   // { url: "/todo-list", action: null },

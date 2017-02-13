@@ -19,8 +19,8 @@ function signin(req, res){
       foundData.forEach((name)=>{
         if(name.password == passChek) {
           req.session.put('userid', name.uuid);
+          req.session.save(()=>{});
           console.log('Wellcome ' + logChek);
-          console.log(req.session.all());
           return;
         } else {
           console.log("No Such User!");
